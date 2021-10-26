@@ -5,9 +5,14 @@ import exercicio2.Agenda;
 import exercicio3.Elevador;
 import exercicio4.ControleRemoto;
 import exercicio4.Televisao;
+import exercicio5.Caminhao;
+import exercicio5.Controle;
+import exercicio5.ControleCaminhao;
+import exercicio5.Pluviometro;
 
 import java.time.LocalDate;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -74,12 +79,58 @@ public class Menu {
                         }
                     }
                 }
-                case "5" -> System.out.println("exercício ainda não implementado");
+                case "5" -> Menu.menuCaminhao();
                 default -> System.out.println("opção inexistente");
             }
 
-            System.out.println("Digite o exercício que você deseja realizar(1-5):");
+            System.out.println("Digite o exercício que você deseja realizar(1-5) ou 'sair' caso queira sair:");
             option = input.nextLine().toLowerCase();
         }
+    }
+
+    private static void menuCaminhao() {
+        System.out.println("A seguir digite as informações sobre os caminhões.");
+        String tipoCaminhao;
+        int qtdPluviometros;
+        List<Caminhao> listaCaminhao = new ArrayList<>();
+
+        do{
+            do {
+                System.out.println("Qual o tipo do caminhão?(Alfa ou Beta)");
+                tipoCaminhao = Controle.leString();
+            } while(!tipoCaminhao.equals("Alfa") && !tipoCaminhao.equals("Beta"));
+
+            System.out.println("Qual a capacidade do caminhão?");
+            qtdPluviometros = Controle.leInteiro();
+
+            Caminhao caminhao = new Caminhao(tipoCaminhao, qtdPluviometros);
+
+            Menu.menuPluviometro(caminhao);
+
+            listaCaminhao.add(caminhao);
+
+            System.out.println("Digite 'Fim' caso deseje sair:");
+        } while(!Controle.leString().equals("Fim"));
+
+        ControleCaminhao.selecionaCaminhao(listaCaminhao);
+    }
+
+    private static Caminhao menuPluviometro(Caminhao caminhao) {
+        System.out.println("A seguir informe as especificações referentes aos pluviômetros deste caminhão:");
+
+        for(int i = 0; i < caminhao.getQtdPluviometros(); i++) {
+            System.out.println("Pluviômetro Nª" + (i+1) + ":");
+
+            System.out.println("Informe o tipo do pluviômetro:");
+            String tipoPluviometro = Controle.leString();
+
+            System.out.println("Informe a capacidade do pluviômetro em mm");
+            int capacidadePluviometro = Controle.leInteiro();
+
+            Pluviometro pluviometro = new Pluviometro(tipoPluviometro, capacidadePluviometro);
+            caminhao.getListaPluviometro().add(pluviometro);
+        }
+
+        return caminhao;
     }
 }
