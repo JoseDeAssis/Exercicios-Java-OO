@@ -46,30 +46,38 @@ public class Elevador {
     }
 
     public void entra() {
-        if(currentNumPeople < maxNumPeople)
-            currentNumPeople++;
-        else
+        if (currentNumPeople >= 0 && currentNumPeople <= maxNumPeople) {
+            this.setCurrentNumPeople(currentNumPeople + 1);
+            System.out.println("Elevador está com " + this.getCurrentNumPeople() + " pessoas");
+        } else {
             System.out.println("Elevador lotado!");
+        }
     }
 
     public void sai() {
-        if(currentNumPeople > 0)
-            currentNumPeople--;
-        else
+        if (currentNumPeople > 0 && currentNumPeople <= maxNumPeople) {
+            this.setCurrentNumPeople(currentNumPeople - 1);
+            System.out.println("Elevador está com " + this.getCurrentNumPeople() + " pessoas");
+        } else {
             System.out.println("Elevador já está vazio!");
+        }
     }
 
     public void sobe() {
-        if(currentFloor < totalFloors)
-            currentFloor++;
-        else
+        if(currentFloor >= 0 && currentFloor <= totalFloors){
+            this.setCurrentFloor(currentFloor + 1);
+            System.out.println("Elevador está no andar " + this.getCurrentFloor());
+        } else {
             System.out.println("Elevador já está no último andar!");
+        }
     }
 
     public void desce() {
-        if(currentFloor > 0)
-            currentFloor--;
-        else
+        if(currentFloor > 0 && currentFloor <= totalFloors){
+            this.setCurrentFloor(currentFloor - 1);
+            System.out.println("Elevador está no andar " + this.getCurrentFloor());
+        } else {
             System.out.println("Elevador já está no térreo");
+        }
     }
 }

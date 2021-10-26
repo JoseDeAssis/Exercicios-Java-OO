@@ -19,6 +19,7 @@ public class Agenda {
         if(index < agendaPesoas.length) {
             Pessoa newPerson = new Pessoa(name, age, height);
             agendaPesoas[index] = newPerson;
+            System.out.println(name + " salva na agenda!");
         } else {
             System.out.println("Agenda cheia!");
         }
@@ -42,6 +43,7 @@ public class Agenda {
             }
 
             agendaPesoas = agendaPessoasAux;
+            System.out.println(name + " foi removida!");
         } else {
             System.out.println(name + " não está presente na agenda!");
         }
